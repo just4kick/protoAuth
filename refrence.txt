@@ -1,0 +1,14 @@
+mysql
+https://hevodata.com/learn/docker-mysql/#s2
+ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'batman';
+mysql -uroot -p
+to change password
+to start mysql after boot localhost
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+//reset password
+sudo systemctl stop mysql
+
+
+ mysql -h localhost -P 3306 --protocol=tcp -uroot -pletmeinroot

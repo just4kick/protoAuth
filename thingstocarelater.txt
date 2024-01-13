@@ -1,0 +1,8 @@
+install cors and app.use(cors({ origin : "*"}))
+
+
+
+//login post
+//logout get
+//signin post
+//
