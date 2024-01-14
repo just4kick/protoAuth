@@ -4,7 +4,7 @@ function authenticateApi(req,res,next)
 {
     const header=req.headers["authorization"];
     const token=header && header.split(" ")[1];
-    if(token==null) return res.json({message:"Token Not Fund"});
+    if(token==null) return res.json({message:"TOKEN NOT FOUND"});
 
     if(process.env.SERVER_PASSWORD !== undefined && process.env.SERVER_PASSWORD === token )
     {

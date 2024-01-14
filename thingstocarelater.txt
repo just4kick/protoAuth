@@ -6,3 +6,6 @@ install cors and app.use(cors({ origin : "*"}))
 //logout get
 //signin post
 //
+
+
+refress token can only be verify by authserver

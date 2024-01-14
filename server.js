@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.get("/",(req,res)=>
 {
-    res.send("server iniziated");
+    res.json({report:"OK",message:"Auth Server Up and Running. Version 1.0.0. Use /api prefix to access api."});
 })
 
 
