@@ -9,3 +9,17 @@ install cors and app.use(cors({ origin : "*"}))
 
 
 refress token can only be verify by 
+
+
+refrest token given another way to login ( which connot be reverted in case of leak)
+
+refrest token must be dependend on password which can be change not not on server password
+
+password changes req
+gandom string convert to hash store on db
+hash will act as server password till user again change password
+
+
+1 method
+
+password hash can be use as server password

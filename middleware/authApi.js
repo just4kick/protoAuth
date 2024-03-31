@@ -8,7 +8,7 @@ function authenticateApi(req,res,next)
 
     if(process.env.SERVER_PASSWORD !== undefined && process.env.SERVER_PASSWORD === token )
     {
-        logger.info(`Authorised to ${req.ip}`)
+        logger.info(`Accessed by ${req.ip}`)
         next();
     }
     else

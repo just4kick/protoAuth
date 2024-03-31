@@ -13,7 +13,6 @@ router.post("/login",
 
 router.post("/signup",
     mid.authApi,
-    mid.req_check.req_check,
         master.signup.signup)
 
 
