@@ -94,3 +94,27 @@ END//
 
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE loginuser
+    (IN p_username_lu  VARCHAR(255),
+     IN p_passwordhash_lu VARCHAR(128)
+    )
+BEGIN
+    DECLARE user_id_lu INT UNSIGNED;
+    DECLARE session_value_lu VARCHAR(255);
+
+    SELECT SESSION_VALUE , USER_ID INTO session_value_lu, user_id_lu FROM session_ls s JOIN loginlist l ON l.ID = s.USER_ID WHERE l.USERNAME = p_username_lu AND l.PASSWDHASH = p_passwordhash_lu;
+
+    IF user_id_lu IS NOT NULL THEN
+        -- Successful login, you can generate a session token here and return it to the client
+        SELECT user_id_lu AS USER_ID,session_value_lu AS SESSION_VALUE;
+    ELSE
+        -- Login failed
+        SELECT NULL AS USER_ID, NULL AS SESSION_VALUE;
+    END IF;
+END//
+
+DELIMITER ;
+
+

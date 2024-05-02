@@ -1,13 +1,18 @@
-const hashvalue=require("../config/cryptoconfig");
 const jwt=require("jsonwebtoken")
 const logger = require("../log/logger")
+const httpStatusCode=require("../config/httpStatusCode");
+const {JsonResponse} = require("../config/ResponseClass");
 
 function req_check(req,res,next){
     
     const userdata = Object.values(req.body);
-    if(userdata.length!==2) return res.status(400).json({message:"INVALID REQUEST"})
-    const hashed=hashvalue(req.body);
-    req.hashed=hashed;
+    const resp= new JsonResponse();
+    if(userdata.length!==2) 
+    {   
+        resp.rtype="error";
+        resp.rmessage="Invalid Request"
+        return res.status(httpStatusCode.BAD_REQUEST).json(resp)
+    }
     next();
 }
 

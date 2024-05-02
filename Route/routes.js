@@ -4,15 +4,30 @@ const mid = require("../middleware/master_mid")
 const router=Router();
 
 
-router.get("/home",master.home_get.home_get)
+router.get("/home",
+mid.authApi,
+master.home_get.home_get)
+
+router.post("/updatesession",
+    mid.authApi,
+    master.newSession.newSession
+)
+
+router.post("/sessionverification",
+    mid.authApi,
+    master.sessionVerification.sessionVerification
+)
+
 
 router.post("/login",
-    mid.req_check.refress_token_check,
+    // mid.req_check.refress_token_check,
+    mid.authApi,
     mid.req_check.req_check,
         master.login.login)
 
 router.post("/signup",
     mid.authApi,
+    mid.req_check.req_check,
         master.signup.signup)
 
 

@@ -1,5 +1,5 @@
 const sysconfig=require("./sysconfig")
-class jsonresponse{
+class JsonResponse{
     constructor(sessiontoken=null,sessionIssued=null,sessionexpireIn=null){
     this.rcode=null;
     this.rmessage=null;
@@ -17,4 +17,6 @@ class jsonresponse{
 }
 
 
-module.exports=jsonresponse;
+module.exports={
+    JsonResponse
+};

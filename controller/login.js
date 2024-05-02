@@ -1,29 +1,39 @@
 const logger = require("../log/logger");
 const database = require("../config/mysql_config")
 const jwt=require("jsonwebtoken");
-const dotenv=require("dotenv").config();
-
-
+const hashvalue=require("../config/JwtTokenConfig")
+const httpStatusCode = require("../config/httpStatusCode");
+const {JsonResponse} = require("../config/ResponseClass")
+const userconfig = require("../userconfig/userconfig")
 
 module.exports.login=(req,res)=>
 {
-
-    const hashed=req.hashed;
+    const userdata = Object.values(req.body);
+    const hashed=hashvalue(req.body);
     
-    database.query("select ID,USERNAME from loginlist where PASSWDHASH = ?",[hashed],(error,result)=>
+    database.query("CALL loginuser(?,?)",[userdata[0],hashed],(error,result)=>
     {
-        if(error) return res.status(500).json({message : "INTERNAL SERVER ERROR",ecode:"s_12",error:{code:error.code,errno:error.errno}});
-
-        if(result.length)
-        {   //jwt token creation
-            const payload={id:result[0].ID,username:result[0].USERNAME};
-            const token=jwt.sign(payload,process.env.JWT_PASSWORD,{expiresIn:"15s"})
-            const refress_token=jwt.sign(payload,process.env.JWT_REFRESS_PASSWORD)
-            res.json({accesstoken:token,refresstoken:refress_token})
+        if(error)
+        {
+            const resp= new JsonResponse();
+            resp.rtype="error";
+            resp.result=error;
+            logger.info(error)
+            return res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json(resp);
         }
-        else{
-            res.status(401).json({message:"USER DATA NOT FOUND."})
+        if(result[0][0].USER_ID===null)
+        {
+            const resp= new JsonResponse();
+            resp.rtype="result";
+            resp.rmessage="User not found"
+            return res.status(httpStatusCode.NOT_FOUND).json(resp);
         }
+        
+        const payload={session:result[0][0].SESSION_VALUE,id:result[0][0].USER_ID,username:userdata[0]};
+        const token=jwt.sign(payload,process.env.JWT_PASSWORD,{expiresIn:userconfig.jwt_token_expireIn});
+        const resp= new JsonResponse(token,Date.now(),Date.now()+(1000*parseInt(userconfig.jwt_token_expireIn)));
+        res.status(httpStatusCode.OK).json(resp); 
+        
 
     })
 
