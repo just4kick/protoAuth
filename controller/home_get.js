@@ -1,8 +1,8 @@
-const jsonresponse = require("../config/ResponseClass");
+const {JsonResponse} = require("../config/ResponseClass")
 
 module.exports.home_get=(req,res)=>
 {
-    const resp = new jsonresponse();
+    const resp = new JsonResponse();
     resp.rtype="result";
     resp.rmessage="All system is working well";
     res.status(200).json(resp);
