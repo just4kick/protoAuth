@@ -1,0 +1,53 @@
+
+###home
+GET http://localhost:3000/api/home HTTP/1.1
+content-type: application/json
+Authorization: Bearer superman
+
+{
+ 
+}
+
+###signup
+
+POST http://localhost:3000/api/signup HTTP/1.1
+content-type: application/json
+Authorization: Bearer superman
+
+["hulk","123"]
+ 
+
+
+###login
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+Authorization: Bearer superman
+
+["batman","1234"]
+
+###updateuser
+
+POST http://localhost:3000/api/updateuser HTTP/1.1
+content-type: application/json
+Authorization: Bearer superman
+
+{
+    "id":1,
+    "username":"superman",
+    "passwd":"123",
+    "new_username":"superman",
+    "new_passwd":"123"
+}
+
+###
+
+POST http://localhost:3000/api/deleteuser HTTP/1.1
+content-type: application/json
+Authorization: Bearer superman
+
+{
+    "id":7,
+    "username":"hulk",
+    "passwd":"123"
+}
+

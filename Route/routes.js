@@ -13,6 +13,16 @@ router.post("/updatesession",
     master.newSession.newSession
 )
 
+router.post("/updateuser",
+    mid.authApi,
+    master.updateuser.updateUser
+)
+
+router.post("/deleteuser",
+    mid.authApi,
+    master.deleteuser.deleteuser
+)
+
 router.post("/sessionverification",
     mid.authApi,
     master.sessionVerification.sessionVerification

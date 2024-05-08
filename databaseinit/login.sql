@@ -104,7 +104,7 @@ BEGIN
     DECLARE user_id_lu INT UNSIGNED;
     DECLARE session_value_lu VARCHAR(255);
 
-    SELECT SESSION_VALUE , USER_ID INTO session_value_lu, user_id_lu FROM session_ls s JOIN loginlist l ON l.ID = s.USER_ID WHERE l.USERNAME = p_username_lu AND l.PASSWDHASH = p_passwordhash_lu;
+    SELECT s.SESSION_VALUE , l.ID INTO session_value_lu, user_id_lu FROM session_ls s JOIN loginlist l ON l.ID = s.USER_ID WHERE l.USERNAME = p_username_lu AND l.PASSWDHASH = p_passwordhash_lu;
 
     IF user_id_lu IS NOT NULL THEN
         -- Successful login, you can generate a session token here and return it to the client
@@ -117,4 +117,61 @@ END//
 
 DELIMITER ;
 
+DELIMITER //
 
+CREATE PROCEDURE updateuser
+    (   
+        IN p_ID_uu INT,
+        IN p_username_uu VARCHAR(255),
+        IN p_passwdhash_uu VARCHAR(128),
+        IN p_newusername_uu VARCHAR(255),
+        IN p_newpasswdhash_uu VARCHAR(128),
+        IN p_newsession_uu VARCHAR(128)
+    )
+BEGIN
+    DECLARE user_id_uu INT UNSIGNED; 
+    
+    SELECT l.ID INTO user_id_uu FROM session_ls s JOIN loginlist l ON l.ID = s.USER_ID 
+    WHERE l.USERNAME = p_username_uu AND l.PASSWDHASH = p_passwdhash_uu AND l.ID=p_ID_uu;
+
+    IF user_id_uu IS NOT NULL THEN
+        UPDATE loginlist SET USERNAME = p_newusername_uu , PASSWDHASH = p_newpasswdhash_uu , UPDATED_AT = NOW()
+        WHERE ID = p_ID_uu;
+        UPDATE session_ls SET SESSION_VALUE = p_newsession_uu WHERE USER_ID = p_ID_uu;  
+    ELSE
+        SELECT NULL AS USER_ID, NULL AS SESSION_VALUE;
+    END IF;
+
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE deleteuser
+(
+    IN p_ID_du INT,
+    IN p_username_du VARCHAR(255),
+    IN p_passwdhash_du VARCHAR(128)
+)
+
+BEGIN
+    DECLARE user_id_du INT UNSIGNED;
+    
+    SELECT l.ID INTO user_id_du FROM session_ls s JOIN loginlist l ON l.ID = s.USER_ID 
+    WHERE l.USERNAME = p_username_du AND l.PASSWDHASH = p_passwdhash_du AND l.ID=p_ID_du;
+    IF user_id_du IS NOT NULL THEN
+        DELETE FROM session_ls WHERE USER_ID=user_id_du;
+        DELETE FROM loginlist WHERE ID=user_id_du;
+    ELSE
+        SELECT NULL AS ID, NULL AS USERNAME;
+    END IF;
+    
+END //
+
+
+
+
+DELIMITER ;
