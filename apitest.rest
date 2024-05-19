@@ -4,9 +4,6 @@ GET http://localhost:3000/api/home HTTP/1.1
 content-type: application/json
 Authorization: Bearer superman
 
-{
- 
-}
 
 ###signup
 
@@ -23,7 +20,7 @@ POST http://localhost:3000/api/login HTTP/1.1
 content-type: application/json
 Authorization: Bearer superman
 
-["batman","1234"]
+["batman","123"]
 
 ###updateuser
 
@@ -32,22 +29,38 @@ content-type: application/json
 Authorization: Bearer superman
 
 {
-    "id":1,
-    "username":"superman",
+    "id":2,
+    "username":"batman",
     "passwd":"123",
-    "new_username":"superman",
+    "new_username":"batman",
     "new_passwd":"123"
 }
 
-###
+###deleteuser
 
-POST http://localhost:3000/api/deleteuser HTTP/1.1
+DELETE http://localhost:3000/api/deleteuser HTTP/1.1
 content-type: application/json
 Authorization: Bearer superman
 
 {
-    "id":7,
-    "username":"hulk",
+    "id":2,
+    "username":"batman",
     "passwd":"123"
 }
 
+###sessionverification
+
+POST http://localhost:3000/api/sessionverification HTTP/1.1
+content-type: application/json
+Authorization: Bearer superman
+
+["e129b4f7d75ff4d4fcfa806e432d08d8b808049a0fd00240252f45598ce9f82b"]
+
+
+###updatesession
+
+POST http://localhost:3000/api/updatesession HTTP/1.1
+content-type: application/json
+Authorization: Bearer superman
+
+[2]

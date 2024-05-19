@@ -8,22 +8,22 @@ router.get("/home",
 mid.authApi,
 master.home_get.home_get)
 
-router.post("/updatesession",
+router.patch("/updatesession",
     mid.authApi,
     master.newSession.newSession
 )
 
-router.post("/updateuser",
+router.put("/updateuser",
     mid.authApi,
     master.updateuser.updateUser
 )
 
-router.post("/deleteuser",
+router.delete("/deleteuser",
     mid.authApi,
     master.deleteuser.deleteuser
 )
 
-router.post("/sessionverification",
+router.get("/sessionverification",
     mid.authApi,
     master.sessionVerification.sessionVerification
 )

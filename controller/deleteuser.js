@@ -25,19 +25,24 @@ module.exports.deleteuser=(req,res)=>
                     {
                         if(error)
                             {
+
                                 errormsg("Database error");
 
                             }
+                            else
+                            {
                             if(result.affectedRows!==undefined)
                                 {
                                     resp.rtype="result"
                                     resp.rmessage="USER DELETED";
                                     res.status(httpStatusCodes.OK).json(resp);
                                 }
+                                else{
                                 resp.rtype="result";
                                 resp.rmessage="Invalid Credential"
                                 res.status(httpStatusCodes.CONFLICT).json(resp);
-                                
+                                }
+                            }
                     })
 
             }

@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "apiend": "nodemon server.js",
+    "clsdb": "./devpackage/cleardb.sh",
+    "dbinit":"./devpackage/dbinit.sh",
+    "dev":"./devpackage/devstartup.sh",
+    "exitdev":"./devpackage/devend.sh"
   },
   "keywords": [],
   "author": "",
