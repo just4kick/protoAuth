@@ -24,7 +24,7 @@ Authorization: Bearer superman
 
 ###updateuser
 
-POST http://localhost:3000/api/updateuser HTTP/1.1
+PUT http://localhost:3000/api/updateuser HTTP/1.1
 content-type: application/json
 Authorization: Bearer superman
 
@@ -50,7 +50,7 @@ Authorization: Bearer superman
 
 ###sessionverification
 
-POST http://localhost:3000/api/sessionverification HTTP/1.1
+GET http://localhost:3000/api/sessionverification HTTP/1.1
 content-type: application/json
 Authorization: Bearer superman
 
@@ -59,7 +59,7 @@ Authorization: Bearer superman
 
 ###updatesession
 
-POST http://localhost:3000/api/updatesession HTTP/1.1
+PATCH  http://localhost:3000/api/updatesession HTTP/1.1
 content-type: application/json
 Authorization: Bearer superman
 
